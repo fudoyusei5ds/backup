@@ -1,0 +1,83 @@
+Introduction:
+
+====================================================================================================================
+
+NUMA ( Non-Uniform Memory Access ) is topology in which, time taken in accessing a memory dependes upon
+the local node or remote node memory. With the help of numa libraries or numactl command we could able
+to use the numa topology such that we can run an application on a specified node ( node affinity ) and
+also, we can apply memory policies such that an application running on a node can get memory alloctaion
+from any specified nodes memory. So, we can use the policies offered by numa libraries or numactl command
+to either decrease the memory latencies or increase the memory bandwidth by properly applying polcies.
+numa是一种拓扑结构, 其访问内存的时间花费取决于本地节点或远程节点存储. 在numa库或numactl命令的帮助下我们可以使用numa结构在指定
+的节点上运行应用程序, 同时也能运用内存政策使在一个节点上运行的程序可以获得来自其他节点分配的内存. 
+因此, 可以使用numa库或者numactl命令所它提供政策来减小内存延迟或者增加内存带宽
+
+Please refer http://lse.sourceforge.net/numa/ to know the basics of numa and refer
+http://www.novell.com/collateral/4621437/4621437.pdf to understand the usage of numactl and numa libraries.
+
+We can always get the latest package from http://oss.sgi.com/projects/libnuma/.
+
+Testcase Description:
+====================================================================================================================
+numa01.sh shell script holds all the numa testcases and support_numa.c will help numa01.sh as and when needed.
+
+Testcase1:
+Verifies the node affinity and memory affinity by running the support_numa process which will allocate 1MB of memory.
+通过运行support_numa进程来验证节点关联性和内存关联性, 需要分配1mb内存
+
+TestCase2:
+Verifies the preferred node memory policy which will allocate memory from the node we specify. This
+testcase will use the support_numa process for the verfication.
+验证从指定节点分配内存的首选节点内存策略. 这个测试用例将使用support_numa来验证
+
+TestCase3:
+Verifies the preferred node memory policy which will allocate shared memory from the node we specify. This
+testcase will use the support_numa process for the verfication.
+验证从指定节点分配共享内存的首选节点内存策略. 这个测试用例将运行support_numa来验证
+
+TestCase4:
+Verifies the memory interleaving policy which will distribute the memory evenly among all nodes. This
+testcase will use the support_numa process for the verfication.
+验证从所有节点均匀分配内存的内存交错策略. 
+
+TestCase5:
+Verifies the memory interleaving policy which will distribute the memory evenly among all nodes. This
+testcase will use the support_numa process for the verfication.
+同上
+
+TestCase6:
+Verifies the physical cpu affinity which runs the process support_numa on the specified physical cpu number.
+验证在指定物理cpu编号上运行support_numa进程的物理cpu亲和性
+
+TestCase7:
+Verifies the local allocation policy which always allocates memory from the local node. This testcase
+will use the support_numa process for the verfication.
+验证总是从本地节点分配内存的本地分配策略.  
+
+TestCase8:
+Verifies the memory interleaving policy which will distribute the memory evenly among all nodes. This
+testcase will use memhog for the verfication.
+同4,5
+
+TestCase9:
+Verifies the numa_node_size api with hardware checking.
+用硬件检查numa_node_size api
+
+TestCase10:
+Verifieds the NUMA migratepages policy.
+验证numa迁移策略
+
+TestCase11:
+Verifies the hugepage memory allocated from the node we specify.
+验证从指定节点分配大页内存
+
+TestCase12:
+Verifies the preferred node policy with THP memory allocating from the node we specify.
+验证从指定节点分配thp内存的首选节点策略
+
+Pre-requisites
+====================================================================================================================
+ * libnuma should be installed on the NUMA machine before executing theses testcases
+ * Testcases will not run by default in LTP-runall, they also skip on non-numa machines
+ 首先要安装libnuma
+ 
